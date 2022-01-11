@@ -1,6 +1,9 @@
 // definisco la variabile di collegamento all'html
 const postsContainer = document.getElementById('container');
 
+// dichiaro l'array dei post piaciuti
+let likedPosts = [];
+
 // definisco l'array di post
 const postsList = [
     {
@@ -86,13 +89,13 @@ function addNewPost(container, object) {
             <div class="post__footer">
                 <div class="likes js-likes">
                     <div class="likes__cta">
-                        <a class="like-button  js-like-button" href="#" data-postid="1">
+                        <a id="like-btn-${object.id}" class="like-button  js-like-button-${object.id}" data-postid="${object.id}">
                             <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                             <span class="like-button__label">Mi Piace</span>
                         </a>
                     </div>
                     <div class="likes__counter">
-                        Piace a <b id="like-counter-1" class="js-likes-counter">${object.likeCounter}</b> persone
+                        Piace a <b id="like-counter-${object.id}" class="js-likes-counter">${object.likeCounter}</b> persone
                     </div>
                 </div> 
             </div>            
@@ -101,4 +104,26 @@ function addNewPost(container, object) {
 
 for(let i = 0; i < postsList.length; i++){
     addNewPost(postsContainer, postsList[i]);
+}
+
+for(let i = 0; i <postsList.length; i++){
+    // dichiaro la variabile per ciascun bottone
+    const likeButton = document.getElementById(`like-btn-${postsList[i].id}`);
+    const likeCounter = document.getElementById(`like-counter-${postsList[i].id}`);
+    postLiked(likeButton, postsList[i], likeCounter)
+}
+
+function postLiked(button, object, likes){
+    button.addEventListener('click', () => {
+        if(button.classList.contains('liked')){
+            button.classList.remove('liked');
+            object.likeCounter--;
+            likes.innerHTML = `${object.likeCounter}`;
+        } else {
+            button.classList.add('liked');
+            object.likeCounter++;
+            likes.innerHTML = `${object.likeCounter}`;
+            likedPosts.push(object);
+        }
+    })
 }
