@@ -89,7 +89,7 @@ function addNewPost(container, object) {
             <div class="post__footer">
                 <div class="likes js-likes">
                     <div class="likes__cta">
-                        <a id="like-btn-${object.id}" class="like-button  js-like-button-${object.id}" data-postid="${object.id}">
+                        <a id="like-btn-${object.id}" href="javascript: void(0)" class="like-button  js-like-button-${object.id}" data-postid="${object.id}">
                             <i class="like-button__icon fas fa-thumbs-up" aria-hidden="true"></i>
                             <span class="like-button__label">Mi Piace</span>
                         </a>
